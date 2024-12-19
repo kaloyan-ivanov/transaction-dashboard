@@ -1,0 +1,64 @@
+{
+  "name": "barracuda-ui",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "verticals-ui": "workspace:*",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@types/react-dom": "18.3.1",
+    "@types/react": "18.3.1",
+    "clsx": "^2.1.1",
+    "@headlessui/react": "^2.2.0",
+    "framer-motion": "^11.15.0",
+    "tailwindcss": "^3.4.16"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "~9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "~5.2.1",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "~5.1.0",
+    "prettier": "~3.4.2",
+    "vite": "^6.0.3",
+    "@vitejs/plugin-react": "~4.3.4",
+    "vite-plugin-checker": "~0.8.0",
+    "vite-tsconfig-paths": "~5.1.4",
+    "vite-plugin-dts": "~4.3.0",
+    "vite-plugin-lib-inject-css": "~2.1.1",
+    "vite-plugin-svgr": "~4.3.0",
+    "typescript": "^5.7.2"
+  },
+  "scripts": {
+    "start": "vite dev",
+    "test": "rushx test:cypress",
+    "test:cypress": "cypress run --component --browser=chrome",
+    "test:cypress:open": "cypress open",
+    "build": "eslint . --max-warnings=0 && vite build 2>&1",
+    "build:watch": "vite build --watch",
+    "lint": "eslint ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
