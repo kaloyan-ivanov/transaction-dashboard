@@ -121,12 +121,20 @@ dist-storybook/
 .cache/
 .heft/
 
-/apps/*/.rush/
-/apps/*/dist/
-/apps/*/node_modules/
-/apps/*/rush-logs/
+# Include the apps directory
+!apps/
 
-/libraries/*/.rush/
-/libraries/*/dist/
-/libraries/*/node_modules/
-/libraries/*/rush-logs/
+# Exclude specific subdirectories within apps
+apps/*/.rush/
+apps/*/dist/
+apps/*/node_modules/
+apps/*/rush-logs/
+
+# Include the libraries directory
+!libraries/
+
+# Exclude specific subdirectories within libraries
+libraries/*/.rush/
+libraries/*/dist/
+libraries/*/node_modules/
+libraries/*/rush-logs/
