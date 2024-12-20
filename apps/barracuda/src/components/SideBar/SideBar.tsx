@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Sidebar,
   SidebarHeader,
@@ -36,8 +36,17 @@ import {
   MagnifyingGlassIcon,
   Cog6ToothIcon
 } from '@heroicons/react/20/solid';
+import { useNavigate } from 'react-router-dom';
 
 const SideBar: React.FC = () => {
+  const navigate = useNavigate();
+  const [currentPath, setCurrentPath] = useState<string>('/');
+
+  const handleNavigation = (path: string) => {
+    setCurrentPath(path);
+    navigate(path);
+  };
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -48,32 +57,32 @@ const SideBar: React.FC = () => {
             <ChevronDownIcon />
           </DropdownButton>
           <DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">
-            <DropdownItem href="/teams/1/settings">
+            <DropdownItem onClick={() => handleNavigation('/teams/1/settings')}>
               <Cog8ToothIcon />
               <DropdownLabel>Settings</DropdownLabel>
             </DropdownItem>
             <DropdownDivider />
-            <DropdownItem href="/teams/1">
+            <DropdownItem onClick={() => handleNavigation('/teams/1')}>
               <Avatar slot="icon" src="/tailwind-logo.svg" />
               <DropdownLabel>Tailwind Labs</DropdownLabel>
             </DropdownItem>
-            <DropdownItem href="/teams/2">
+            <DropdownItem onClick={() => handleNavigation('/teams/2')}>
               <Avatar slot="icon" initials="WC" className="bg-purple-500 text-white" />
               <DropdownLabel>Workcation</DropdownLabel>
             </DropdownItem>
             <DropdownDivider />
-            <DropdownItem href="/teams/create">
+            <DropdownItem onClick={() => handleNavigation('/teams/create')}>
               <PlusIcon />
               <DropdownLabel>New team&hellip;</DropdownLabel>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
         <SidebarSection className="max-lg:hidden">
-          <SidebarItem href="/search">
+          <SidebarItem onClick={() => handleNavigation('/search')} current={currentPath === '/search'}>
             <MagnifyingGlassIcon />
             <SidebarLabel>Search</SidebarLabel>
           </SidebarItem>
-          <SidebarItem href="/inbox">
+          <SidebarItem onClick={() => handleNavigation('/inbox')} current={currentPath === '/inbox'}>
             <InboxIcon />
             <SidebarLabel>Inbox</SidebarLabel>
           </SidebarItem>
@@ -81,41 +90,49 @@ const SideBar: React.FC = () => {
       </SidebarHeader>
       <SidebarBody>
         <SidebarSection>
-          <SidebarItem href="/">
+          <SidebarItem onClick={() => handleNavigation('/')} current={currentPath === '/'}>
             <HomeIcon />
             <SidebarLabel>Home</SidebarLabel>
           </SidebarItem>
-          <SidebarItem href="/events">
+          <SidebarItem onClick={() => handleNavigation('/events')} current={currentPath === '/events'}>
             <Square2StackIcon />
             <SidebarLabel>Events</SidebarLabel>
           </SidebarItem>
-          <SidebarItem href="/orders">
+          <SidebarItem onClick={() => handleNavigation('/orders')} current={currentPath === '/orders'}>
             <TicketIcon />
             <SidebarLabel>Orders</SidebarLabel>
           </SidebarItem>
-          <SidebarItem href="/settings">
+          <SidebarItem onClick={() => handleNavigation('/settings')} current={currentPath === '/settings'}>
             <Cog6ToothIcon />
             <SidebarLabel>Settings</SidebarLabel>
           </SidebarItem>
-          <SidebarItem href="/broadcasts">
+          <SidebarItem onClick={() => handleNavigation('/broadcasts')} current={currentPath === '/broadcasts'}>
             <MegaphoneIcon />
             <SidebarLabel>Broadcasts</SidebarLabel>
           </SidebarItem>
         </SidebarSection>
         <SidebarSection className="max-lg:hidden">
           <SidebarHeading>Upcoming Events</SidebarHeading>
-          <SidebarItem href="/events/1">Bear Hug: Live in Concert</SidebarItem>
-          <SidebarItem href="/events/2">Viking People</SidebarItem>
-          <SidebarItem href="/events/3">Six Fingers — DJ Set</SidebarItem>
-          <SidebarItem href="/events/4">We All Look The Same</SidebarItem>
+          <SidebarItem onClick={() => handleNavigation('/events/1')} current={currentPath === '/events/1'}>
+            Bear Hug: Live in Concert
+          </SidebarItem>
+          <SidebarItem onClick={() => handleNavigation('/events/2')} current={currentPath === '/events/2'}>
+            Viking People
+          </SidebarItem>
+          <SidebarItem onClick={() => handleNavigation('/events/3')} current={currentPath === '/events/3'}>
+            Six Fingers — DJ Set
+          </SidebarItem>
+          <SidebarItem onClick={() => handleNavigation('/events/4')} current={currentPath === '/events/4'}>
+            We All Look The Same
+          </SidebarItem>
         </SidebarSection>
         <SidebarSpacer />
         <SidebarSection>
-          <SidebarItem href="/support">
+          <SidebarItem onClick={() => handleNavigation('/support')} current={currentPath === '/support'}>
             <QuestionMarkCircleIcon />
             <SidebarLabel>Support</SidebarLabel>
           </SidebarItem>
-          <SidebarItem href="/changelog">
+          <SidebarItem onClick={() => handleNavigation('/changelog')} current={currentPath === '/changelog'}>
             <SparklesIcon />
             <SidebarLabel>Changelog</SidebarLabel>
           </SidebarItem>
@@ -136,25 +153,25 @@ const SideBar: React.FC = () => {
             <ChevronUpIcon />
           </DropdownButton>
           <DropdownMenu className="min-w-64" anchor="top start">
-            <DropdownItem href="/my-profile">
+            <DropdownItem onClick={() => handleNavigation('/my-profile')}>
               <UserIcon />
               <DropdownLabel>My profile</DropdownLabel>
             </DropdownItem>
-            <DropdownItem href="/settings">
+            <DropdownItem onClick={() => handleNavigation('/settings')}>
               <Cog8ToothIcon />
               <DropdownLabel>Settings</DropdownLabel>
             </DropdownItem>
             <DropdownDivider />
-            <DropdownItem href="/privacy-policy">
+            <DropdownItem onClick={() => handleNavigation('/privacy-policy')}>
               <ShieldCheckIcon />
               <DropdownLabel>Privacy policy</DropdownLabel>
             </DropdownItem>
-            <DropdownItem href="/share-feedback">
+            <DropdownItem onClick={() => handleNavigation('/share-feedback')}>
               <LightBulbIcon />
               <DropdownLabel>Share feedback</DropdownLabel>
             </DropdownItem>
             <DropdownDivider />
-            <DropdownItem href="/logout">
+            <DropdownItem onClick={() => handleNavigation('/logout')}>
               <ArrowRightStartOnRectangleIcon />
               <DropdownLabel>Sign out</DropdownLabel>
             </DropdownItem>
