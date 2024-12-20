@@ -1,7 +1,8 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   presets: [],
-  darkMode: 'media', // or 'class'
+  //media gets the device theme and automatically sets the webapp CSS to light or dark
+  darkMode: 'selector', //selector if the app will support light/dark theme mode, or media for auto theme
   theme: {
     accentColor: ({ theme }) => ({
       ...theme('colors'),
@@ -301,6 +302,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        'Inter',
         'ui-sans-serif',
         'system-ui',
         'sans-serif',
