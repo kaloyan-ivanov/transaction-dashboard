@@ -1,6 +1,7 @@
 //export shared UI components
 export * from './ui-components/demo-for-custom-shared-button/DemoSharedButton';
 export * from './ui-components/catalyst/typescript/alert';
+export * from './ui-components/catalyst/typescript/avatar';
 export * from './ui-components/catalyst/typescript/badge';
 export * from './ui-components/catalyst/typescript/button';
 export * from './ui-components/catalyst/typescript/checkbox';

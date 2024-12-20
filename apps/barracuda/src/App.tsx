@@ -1,29 +1,33 @@
 import React from 'react';
 import './App.css';
 import './output.css';
-import { DemoSharedButton, Button, addNumbers } from 'verticals-ui';
-import { Button as HeadlessButton } from '@headlessui/react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { SidebarLayout } from 'verticals-ui';
+import { routes } from './appRoutes';
+import { HomePage } from './pages';
+import NavBar from './components/NavBar/NavBar';
+import SideBar from './components/SideBar/SideBar';
 
 function App() {
+  //TODO: Change here when authentication is added
+  const isAuthenticated = true;
+
   return (
-    <>
-      <div>Barracuda-UI</div>
-      <div>
-        <DemoSharedButton />
-      </div>
-      <div>
-        <HeadlessButton
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => alert('Default Tailwind button clicked!')}
-        >
-          Default Tailwind Headless UI Button with style from their docs
-        </HeadlessButton>
-      </div>
-      <div>
-        <Button>Default Catalyst Button</Button>
-      </div>
-      <div>{`Some another div here that uses to calculate via shared helper functions 2+2 -> ${addNumbers(2, 2)}`}</div>
-    </>
+    <BrowserRouter>
+      <SidebarLayout navbar={<NavBar />} sidebar={<SideBar />}>
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<HomePage />} />
+          {routes.map(({ path, component: Component }) => {
+            if (isAuthenticated) {
+              return <Route key={path} path={path} element={<Component />} />;
+            } else {
+              return <Route key={path} path={'*'} element={<Navigate key={path} to={'/home'} />} />;
+            }
+          })}
+        </Routes>
+      </SidebarLayout>
+    </BrowserRouter>
   );
 }
 export default App;
