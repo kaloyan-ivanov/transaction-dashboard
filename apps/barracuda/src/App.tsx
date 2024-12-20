@@ -14,6 +14,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      {/* navbar is used for mobile screens only, sidebar is for standard displays */}
       <SidebarLayout navbar={<NavBar />} sidebar={<SideBar />}>
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />

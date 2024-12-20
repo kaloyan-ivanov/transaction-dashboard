@@ -10,9 +10,9 @@
   "module": "./dist/verticals-ui.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/verticals-ui.js",
-      "require": "./dist/verticals-ui.umd.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/verticals-ui.umd.cjs"
     }
   },
   "dependencies": {},

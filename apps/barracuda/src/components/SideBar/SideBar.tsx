@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Sidebar,
   SidebarHeader,
@@ -42,10 +42,13 @@ const SideBar: React.FC = () => {
   const navigate = useNavigate();
   const [currentPath, setCurrentPath] = useState<string>('/');
 
-  const handleNavigation = (path: string) => {
-    setCurrentPath(path);
-    navigate(path);
-  };
+  const handleNavigation = useCallback(
+    (path: string) => {
+      setCurrentPath(path);
+      navigate(path);
+    },
+    [navigate]
+  );
 
   return (
     <Sidebar>
