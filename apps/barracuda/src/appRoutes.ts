@@ -1,4 +1,4 @@
-import { HomePage } from './pages';
+import { HomePage, TransactionsPage } from './pages';
 
 type Route = {
   path: string;
@@ -9,5 +9,9 @@ export const routes: Route[] = [
   {
     path: '/home',
     component: HomePage
+  },
+  {
+    path: '/transactions',
+    component: TransactionsPage
   }
 ];

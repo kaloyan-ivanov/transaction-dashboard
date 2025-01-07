@@ -8,7 +8,6 @@ import {
   SidebarItem,
   SidebarLabel,
   SidebarSpacer,
-  SidebarHeading,
   Dropdown,
   DropdownButton,
   DropdownMenu,
@@ -24,16 +23,11 @@ import {
   HomeIcon,
   InboxIcon,
   LightBulbIcon,
-  MegaphoneIcon,
   PlusIcon,
-  QuestionMarkCircleIcon,
   ShieldCheckIcon,
-  SparklesIcon,
-  TicketIcon,
   UserIcon,
   ArrowRightStartOnRectangleIcon,
   MagnifyingGlassIcon,
-  Cog6ToothIcon,
   ArrowsRightLeftIcon
 } from '@heroicons/react/20/solid';
 import { useNavigate } from 'react-router-dom';
@@ -101,45 +95,8 @@ const SideBar: React.FC = () => {
             <ArrowsRightLeftIcon />
             <SidebarLabel>Transactions</SidebarLabel>
           </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/orders')} current={currentPath === '/orders'}>
-            <TicketIcon />
-            <SidebarLabel>Orders</SidebarLabel>
-          </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/settings')} current={currentPath === '/settings'}>
-            <Cog6ToothIcon />
-            <SidebarLabel>Settings</SidebarLabel>
-          </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/broadcasts')} current={currentPath === '/broadcasts'}>
-            <MegaphoneIcon />
-            <SidebarLabel>Broadcasts</SidebarLabel>
-          </SidebarItem>
-        </SidebarSection>
-        <SidebarSection className="max-lg:hidden">
-          <SidebarHeading>Upcoming Events</SidebarHeading>
-          <SidebarItem onClick={() => handleNavigation('/events/1')} current={currentPath === '/events/1'}>
-            Bear Hug: Live in Concert
-          </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/events/2')} current={currentPath === '/events/2'}>
-            Viking People
-          </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/events/3')} current={currentPath === '/events/3'}>
-            Six Fingers — DJ Set
-          </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/events/4')} current={currentPath === '/events/4'}>
-            We All Look The Same
-          </SidebarItem>
         </SidebarSection>
         <SidebarSpacer />
-        <SidebarSection>
-          <SidebarItem onClick={() => handleNavigation('/support')} current={currentPath === '/support'}>
-            <QuestionMarkCircleIcon />
-            <SidebarLabel>Support</SidebarLabel>
-          </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/changelog')} current={currentPath === '/changelog'}>
-            <SparklesIcon />
-            <SidebarLabel>Changelog</SidebarLabel>
-          </SidebarItem>
-        </SidebarSection>
       </SidebarBody>
       <SidebarFooter className="max-lg:hidden">
         <Dropdown>

@@ -4,7 +4,7 @@ import './output.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SidebarLayout } from 'verticals-ui';
 import { routes } from './appRoutes';
-import { HomePage, TransactionGrid } from './pages';
+import { HomePage } from './pages';
 import NavBar from './components/NavBar/NavBar';
 import SideBar from './components/SideBar/SideBar';
 
@@ -19,7 +19,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/transactions" element={<TransactionGrid />} />
           {routes.map(({ path, component: Component }) => {
             if (isAuthenticated) {
               return <Route key={path} path={path} element={<Component />} />;
