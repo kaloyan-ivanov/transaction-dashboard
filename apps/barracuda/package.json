@@ -34,7 +34,11 @@
     "vite-plugin-dts": "~4.3.0",
     "vite-plugin-lib-inject-css": "~2.1.1",
     "vite-plugin-svgr": "~4.3.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.2"
   },
   "scripts": {
     "start": "vite dev",

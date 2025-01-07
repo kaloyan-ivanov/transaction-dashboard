@@ -29,12 +29,12 @@ import {
   QuestionMarkCircleIcon,
   ShieldCheckIcon,
   SparklesIcon,
-  Square2StackIcon,
   TicketIcon,
   UserIcon,
   ArrowRightStartOnRectangleIcon,
   MagnifyingGlassIcon,
-  Cog6ToothIcon
+  Cog6ToothIcon,
+  ArrowsRightLeftIcon
 } from '@heroicons/react/20/solid';
 import { useNavigate } from 'react-router-dom';
 
@@ -97,9 +97,9 @@ const SideBar: React.FC = () => {
             <HomeIcon />
             <SidebarLabel>Home</SidebarLabel>
           </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/events')} current={currentPath === '/events'}>
-            <Square2StackIcon />
-            <SidebarLabel>Events</SidebarLabel>
+          <SidebarItem onClick={() => handleNavigation('/transactions')} current={currentPath === '/transactions'}>
+            <ArrowsRightLeftIcon />
+            <SidebarLabel>Transactions</SidebarLabel>
           </SidebarItem>
           <SidebarItem onClick={() => handleNavigation('/orders')} current={currentPath === '/orders'}>
             <TicketIcon />
