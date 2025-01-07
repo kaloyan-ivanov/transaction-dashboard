@@ -34,7 +34,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SideBar: React.FC = () => {
   const navigate = useNavigate();
-  const [currentPath, setCurrentPath] = useState<string>('/');
+  const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
 
   const handleNavigation = useCallback(
     (path: string) => {
