@@ -30,8 +30,8 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 
 interface SideBarProps {
-  toggleSidebar?: () => void;
-  isSidebarExpanded?: boolean;
+  toggleSidebar: () => void;
+  isSidebarExpanded: boolean;
 }
 
 const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
@@ -52,14 +52,10 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
     <Sidebar className={`transition-width duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
       <SidebarHeader>
         <SidebarSection>
-          <SidebarItem>
+          <SidebarItem onClick={() => toggleSidebar()} style={{ cursor: 'pointer' }}>
             <Avatar src="/BrikLabsLogo.png" />
             {isSidebarExpanded && <SidebarLabel>Brik Labs</SidebarLabel>}
-            {isSidebarExpanded ? (
-              <ChevronLeftIcon onClick={() => toggleSidebar && toggleSidebar()} style={{ cursor: 'pointer' }} />
-            ) : (
-              <ChevronRightIcon onClick={() => toggleSidebar && toggleSidebar()} style={{ cursor: 'pointer' }} />
-            )}
+            {isSidebarExpanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </SidebarItem>
         </SidebarSection>
       </SidebarHeader>
