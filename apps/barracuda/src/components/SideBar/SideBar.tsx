@@ -17,20 +17,17 @@ import {
   Avatar
 } from 'verticals-ui';
 import {
-  ChevronDownIcon,
   ChevronUpIcon,
   Cog8ToothIcon,
   HomeIcon,
-  InboxIcon,
   LightBulbIcon,
-  PlusIcon,
   ShieldCheckIcon,
   UserIcon,
   ArrowRightStartOnRectangleIcon,
-  MagnifyingGlassIcon,
   ArrowsRightLeftIcon
 } from '@heroicons/react/20/solid';
 import { useNavigate } from 'react-router-dom';
+import { ChevronLeftIcon } from '@heroicons/react/16/solid';
 
 const SideBar: React.FC = () => {
   const navigate = useNavigate();
@@ -44,44 +41,21 @@ const SideBar: React.FC = () => {
     [navigate]
   );
 
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(true);
+
+  const toggleSidebar = useCallback(() => {
+    alert(isSidebarExpanded);
+    setIsSidebarExpanded((prevState) => !prevState);
+  }, [isSidebarExpanded]);
+
   return (
     <Sidebar>
       <SidebarHeader>
-        <Dropdown>
-          <DropdownButton as={SidebarItem} className="lg:mb-2.5">
+        <SidebarSection>
+          <SidebarItem>
             <Avatar src="/BrikLabsLogo.png" />
             <SidebarLabel>Brik Labs</SidebarLabel>
-            <ChevronDownIcon />
-          </DropdownButton>
-          <DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">
-            <DropdownItem onClick={() => handleNavigation('/teams/1/settings')}>
-              <Cog8ToothIcon />
-              <DropdownLabel>Settings</DropdownLabel>
-            </DropdownItem>
-            <DropdownDivider />
-            <DropdownItem onClick={() => handleNavigation('/teams/1')}>
-              <Avatar slot="icon" src="/tailwind-logo.svg" />
-              <DropdownLabel>Tailwind Labs</DropdownLabel>
-            </DropdownItem>
-            <DropdownItem onClick={() => handleNavigation('/teams/2')}>
-              <Avatar slot="icon" initials="WC" className="bg-purple-500 text-white" />
-              <DropdownLabel>Workcation</DropdownLabel>
-            </DropdownItem>
-            <DropdownDivider />
-            <DropdownItem onClick={() => handleNavigation('/teams/create')}>
-              <PlusIcon />
-              <DropdownLabel>New team&hellip;</DropdownLabel>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-        <SidebarSection className="max-lg:hidden">
-          <SidebarItem onClick={() => handleNavigation('/search')} current={currentPath === '/search'}>
-            <MagnifyingGlassIcon />
-            <SidebarLabel>Search</SidebarLabel>
-          </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/inbox')} current={currentPath === '/inbox'}>
-            <InboxIcon />
-            <SidebarLabel>Inbox</SidebarLabel>
+            <ChevronLeftIcon onClick={toggleSidebar} style={{ cursor: 'pointer' }} />
           </SidebarItem>
         </SidebarSection>
       </SidebarHeader>
