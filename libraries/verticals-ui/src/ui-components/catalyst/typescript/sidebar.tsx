@@ -76,20 +76,29 @@ export const SidebarItem = forwardRef(function SidebarItem(
     current,
     className,
     children,
+    iconType, // no default value
+    contentLocation,
     ...props
-  }: { current?: boolean; className?: string; children: React.ReactNode } & (
-    | Omit<Headless.ButtonProps, 'as' | 'className'>
-    | Omit<Headless.ButtonProps<typeof Link>, 'as' | 'className'>
-  ),
+  }: {
+    current?: boolean;
+    className?: string;
+    children: React.ReactNode;
+    iconType?: 'leading' | 'trailing';
+    contentLocation?: 'centered';
+  } & (Omit<Headless.ButtonProps, 'as' | 'className'> | Omit<Headless.ButtonProps<typeof Link>, 'as' | 'className'>),
   ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
 ) {
   let classes = clsx(
     // Base
     'flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5',
     // Leading icon/icon-only
-    'data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:fill-zinc-500 sm:data-[slot=icon]:*:size-5',
+    (!iconType || iconType === 'leading') &&
+      'data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:fill-zinc-500 sm:data-[slot=icon]:*:size-5',
+    // if centered content is needed
+    contentLocation === 'centered' && 'justify-center',
     // Trailing icon (down chevron or similar)
-    'data-[slot=icon]:last:*:ml-auto data-[slot=icon]:last:*:size-5 sm:data-[slot=icon]:last:*:size-4',
+    (!iconType || iconType === 'trailing') &&
+      'data-[slot=icon]:last:*:ml-auto data-[slot=icon]:last:*:size-5 sm:data-[slot=icon]:last:*:size-4',
     // Avatar
     'data-[slot=avatar]:*:-m-0.5 data-[slot=avatar]:*:size-7 data-[slot=avatar]:*:[--ring-opacity:10%] sm:data-[slot=avatar]:*:size-6',
     // Hover

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.css';
 import './output.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -12,10 +12,18 @@ function App() {
   //TODO: Change here when authentication is added
   const isAuthenticated = true;
 
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const toggleSidebar = useCallback(() => setIsSidebarExpanded((prev) => !prev), []);
+
   return (
     <BrowserRouter>
       {/* navbar is used for mobile screens only, sidebar is for standard displays */}
-      <SidebarLayout navbar={<NavBar />} sidebar={<SideBar />}>
+
+      <SidebarLayout
+        navbar={<NavBar />}
+        sidebar={<SideBar toggleSidebar={toggleSidebar} isSidebarExpanded={isSidebarExpanded} />}
+        isSidebarExpanded={isSidebarExpanded}
+      >
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<HomePage />} />

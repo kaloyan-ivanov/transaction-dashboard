@@ -27,9 +27,16 @@ import {
   ArrowsRightLeftIcon
 } from '@heroicons/react/20/solid';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeftIcon } from '@heroicons/react/16/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 
-const SideBar: React.FC = () => {
+interface SideBarProps {
+  toggleSidebar?: () => void;
+  isSidebarExpanded?: boolean;
+}
+
+const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
+  const { toggleSidebar, isSidebarExpanded } = props;
+
   const navigate = useNavigate();
   const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
 
@@ -41,33 +48,40 @@ const SideBar: React.FC = () => {
     [navigate]
   );
 
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(true);
-
-  const toggleSidebar = useCallback(() => {
-    alert(isSidebarExpanded);
-    setIsSidebarExpanded((prevState) => !prevState);
-  }, [isSidebarExpanded]);
-
   return (
-    <Sidebar>
+    <Sidebar className={`transition-width duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
       <SidebarHeader>
         <SidebarSection>
           <SidebarItem>
             <Avatar src="/BrikLabsLogo.png" />
-            <SidebarLabel>Brik Labs</SidebarLabel>
-            <ChevronLeftIcon onClick={toggleSidebar} style={{ cursor: 'pointer' }} />
+            {isSidebarExpanded && <SidebarLabel>Brik Labs</SidebarLabel>}
+            {isSidebarExpanded ? (
+              <ChevronLeftIcon onClick={() => toggleSidebar && toggleSidebar()} style={{ cursor: 'pointer' }} />
+            ) : (
+              <ChevronRightIcon onClick={() => toggleSidebar && toggleSidebar()} style={{ cursor: 'pointer' }} />
+            )}
           </SidebarItem>
         </SidebarSection>
       </SidebarHeader>
       <SidebarBody>
         <SidebarSection>
-          <SidebarItem onClick={() => handleNavigation('/')} current={currentPath === '/'}>
+          <SidebarItem
+            iconType="leading"
+            contentLocation={!isSidebarExpanded ? 'centered' : undefined}
+            onClick={() => handleNavigation('/')}
+            current={currentPath === '/'}
+          >
             <HomeIcon />
-            <SidebarLabel>Home</SidebarLabel>
+            {isSidebarExpanded && <SidebarLabel>Home</SidebarLabel>}
           </SidebarItem>
-          <SidebarItem onClick={() => handleNavigation('/transactions')} current={currentPath === '/transactions'}>
+          <SidebarItem
+            iconType="leading"
+            contentLocation={!isSidebarExpanded ? 'centered' : undefined}
+            onClick={() => handleNavigation('/transactions')}
+            current={currentPath === '/transactions'}
+          >
             <ArrowsRightLeftIcon />
-            <SidebarLabel>Transactions</SidebarLabel>
+            {isSidebarExpanded && <SidebarLabel>Transactions</SidebarLabel>}
           </SidebarItem>
         </SidebarSection>
         <SidebarSpacer />
@@ -77,14 +91,16 @@ const SideBar: React.FC = () => {
           <DropdownButton as={SidebarItem}>
             <span className="flex min-w-0 items-center gap-3">
               <Avatar src="/profile-photo.jpg" className="size-10" square alt="" />
-              <span className="min-w-0">
-                <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
-                <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                  erica@example.com
+              {isSidebarExpanded && (
+                <span className="min-w-0">
+                  <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
+                  <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
+                    erica@example.com
+                  </span>
                 </span>
-              </span>
+              )}
             </span>
-            <ChevronUpIcon />
+            {isSidebarExpanded && <ChevronUpIcon />}
           </DropdownButton>
           <DropdownMenu className="min-w-64" anchor="top start">
             <DropdownItem onClick={() => handleNavigation('/my-profile')}>
