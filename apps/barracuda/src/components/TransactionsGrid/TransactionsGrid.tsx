@@ -5,17 +5,15 @@ import {
   TableRow,
   TableHeader,
   TableBody,
-  TableCell
-} from '../../../../../libraries/verticals-ui/src/ui-components/catalyst/typescript/table';
-import { Transaction } from './TransactionsData';
-import {
+  TableCell,
   Pagination,
   PaginationList,
   PaginationPage,
   PaginationNext,
   PaginationPrevious,
   PaginationGap
-} from '../../../../../libraries/verticals-ui/src/ui-components/catalyst/typescript/pagination';
+} from 'verticals-ui';
+import { Transaction } from './TransactionsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faFlag, faEllipsisH } from '@fortawesome/free-solid-svg-icons';

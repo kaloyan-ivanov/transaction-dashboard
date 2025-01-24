@@ -1,0 +1,15 @@
+apps/barracuda/dist
+apps/barracuda/node_modules
+apps/barracuda/rush-logs
+
+common/deploy
+common/config/rush/pnpm-lock.yaml
+common/temp
+
+apps/verticals-ui/dist
+apps/verticals-ui/node_modules
+apps/verticals-ui/rush-logs
+
+.dockerignore
+Dockerfile
+docker-compose.yml
