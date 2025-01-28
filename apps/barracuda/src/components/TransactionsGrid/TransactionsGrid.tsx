@@ -17,6 +17,8 @@ import { Transaction } from './TransactionsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faFlag, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import TransactionFilter from './TransactionFilter';
+import { Badge } from 'verticals-ui';
 
 const itemsPerPageOptions = [10, 20, 50, 100];
 
@@ -31,24 +33,17 @@ const tableHeaders = [
   'Date',
   'Actions'
 ];
+type BadgeColor = 'lime' | 'blue' | 'purple' | 'orange' | 'zinc' | 'red';
 
-const stateStyles = {
-  Cleared: { backgroundColor: '#e0f7e0', color: '#2e7d32' },
-  PayedOut: { backgroundColor: '#e0f0ff', color: '#1565c0' },
-  Settled: { backgroundColor: '#f3e5f5', color: '#6a1b9a' },
-  Authorized: { backgroundColor: '#fff3e0', color: '#e65100' },
-  InProgress: { backgroundColor: '#eeeeee', color: '#424242' },
-  Failed: { backgroundColor: '#ffebee', color: '#c62828' },
-  default: { backgroundColor: '#f5f5f5', color: '#212121' }
-};
-
-const commonStyles = {
-  borderRadius: '50px',
-  textAlign: 'center' as const,
-  fontWeight: '500',
-  display: 'inline-block',
-  padding: '4px 8px'
-};
+const stateStyles = new Map<string, BadgeColor>([
+  ['Cleared', 'lime'],
+  ['PayedOut', 'blue'],
+  ['Settled', 'purple'],
+  ['Authorized', 'orange'],
+  ['InProgress', 'zinc'],
+  ['Failed', 'red'],
+  ['default', 'zinc']
+]);
 
 export interface TransactionsDataGridProps {
   readonly dataSource: Transaction[];
@@ -60,13 +55,13 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
-  const pagesCount = useMemo(() => Math.ceil(dataSource.length / itemsPerPage), [dataSource.length, itemsPerPage]);
-
   const currentData = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     return dataSource.slice(startIndex, endIndex);
-  }, [dataSource, currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage, dataSource]);
+
+  const pagesCount = useMemo(() => Math.ceil(dataSource.length / itemsPerPage), [dataSource.length, itemsPerPage]);
 
   const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
@@ -105,14 +100,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
               }).format(transaction.amounts.amount)}
             </TableCell>
             <TableCell>
-              <span
-                style={{
-                  ...stateStyles[transaction.state],
-                  ...commonStyles
-                }}
-              >
-                {transaction.state}
-              </span>
+              <Badge color={stateStyles.get(transaction.state) ?? 'lime'}>{transaction.state} </Badge>
             </TableCell>
             <TableCell>{transaction.description}</TableCell>
             <TableCell>{transaction.customer.id}</TableCell>
@@ -216,6 +204,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
 
   return (
     <React.Fragment>
+      <TransactionFilter />
       <Table dense className="[--gutter:theme(spacing.6)] sm:[--gutter:theme(spacing.8)]">
         {renderTableHead()}
         {renderTableBody()}
