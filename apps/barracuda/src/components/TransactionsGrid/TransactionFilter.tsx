@@ -70,7 +70,7 @@ export default function TransactionFilter() {
           <Input
             type="datetime-local"
             name="url"
-            value={date ?? ''}
+            value={new Date(Number(date)).toISOString().slice(0, 16)}
             onChange={(e) => handleDateChange(e.target.value)}
           />
         </Field>
