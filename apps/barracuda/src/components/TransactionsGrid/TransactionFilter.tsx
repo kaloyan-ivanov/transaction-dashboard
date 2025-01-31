@@ -1,48 +1,68 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { useTransactionFilters } from '../../hooks/useTransactionFilters';
 import { Button, Dropdown, DropdownButton, DropdownItem, DropdownMenu, Field, Input } from 'verticals-ui';
-
-interface TransactionFilters {
-  amountLessThan?: string | undefined;
-  amountMoreThan?: string | undefined;
-  state?: string | undefined;
-  date?: string | undefined;
-  // dateBefore?: string | undefined;
-  // dateAfter?: string | undefined;
-  description?: string | undefined;
-}
+import { DateTime } from 'luxon';
 
 const statuses = ['All', 'Successful', 'Failed', 'Refunded'];
-export default function TransactionFilter() {
+
+type TransactionFilters = {
+  amountLessThan?: string;
+  amountMoreThan?: string;
+  state?: string;
+  date?: string;
+  // dateBefore?: string | undefined;
+  // dateAfter?: string | undefined;
+  description?: string;
+};
+
+function TransactionFilter() {
   const { date, description, state, setFilters } = useTransactionFilters();
 
-  const handleStateChange = (newState: TransactionFilters['state']) => {
-    setFilters({ state: newState });
-  };
+  const handleStateChange = useCallback(
+    (state: TransactionFilters['state']) => {
+      setFilters({ state: state });
+    },
+    [setFilters]
+  );
 
-  const handleDateChange = (newState: string) => {
-    const timestamp = new Date(newState).getTime();
-    setFilters({ date: String(timestamp) });
-  };
+  const handleDateChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters({ date: String(DateTime.fromISO(e.target.value).toMillis()) });
+    },
+    [setFilters]
+  );
 
-  const handleDescriptionChange = (newState: TransactionFilters['description']) => {
-    setFilters({ description: newState });
-  };
+  const handleDescriptionChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters({ description: e.target.value });
+    },
+    [setFilters]
+  );
 
   const handleSubmit = useCallback(() => {
     console.log('date', date);
     console.log('state', state);
   }, [date, state]);
 
+  const renderStatusButtons = useMemo(() => {
+    return statuses.map((status) => (
+      <Button color={status === state ? 'indigo' : 'light'} key={status} onClick={() => handleStateChange(status)}>
+        {status}
+      </Button>
+    ));
+  }, [state, handleStateChange]);
+
+  const renderStatusDropdownItems = useMemo(() => {
+    return statuses.map((status) => (
+      <DropdownItem key={status} onClick={() => handleStateChange(status)}>
+        {status}
+      </DropdownItem>
+    ));
+  }, [handleStateChange]);
+
   return (
     <>
-      <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-        {statuses.map((status) => (
-          <Button color={status === state ? 'indigo' : 'light'} key={status} onClick={() => handleStateChange(status)}>
-            {status}
-          </Button>
-        ))}
-      </div>
+      <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>{renderStatusButtons}</div>
       <div style={{ display: 'flex', gap: '16px', alignItems: 'center', paddingTop: '10px' }}>
         <Field>
           <Input
@@ -50,31 +70,23 @@ export default function TransactionFilter() {
             placeholder="Search by AccountID or Description"
             value={description ?? ''}
             name="full_name"
-            onChange={(e) => handleDescriptionChange(e.target.value)}
+            onChange={handleDescriptionChange}
           />
         </Field>
         <Dropdown>
           <DropdownButton plain aria-label="More options">
             All statuses
           </DropdownButton>
-          <DropdownMenu>
-            {statuses.map((status) => (
-              <DropdownItem key={status} onClick={() => handleStateChange(status)}>
-                {status}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
+          <DropdownMenu>{renderStatusDropdownItems}</DropdownMenu>
         </Dropdown>
         <Field style={{ minWidth: '170px' }}>
-          {/* <Label>before date</Label> */}
           <Input
             type="datetime-local"
             name="url"
-            value={new Date(Number(date)).toISOString().slice(0, 16)}
-            onChange={(e) => handleDateChange(e.target.value)}
+            value={date ? new Date(Number(date)).toISOString().slice(0, 16) : ''}
+            onChange={handleDateChange}
           />
         </Field>
-
         <Button color="teal" onClick={handleSubmit}>
           Apply
         </Button>
@@ -82,3 +94,5 @@ export default function TransactionFilter() {
     </>
   );
 }
+
+export default memo(TransactionFilter);

@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState, useEffect, memo } from 'react';
 import {
+  Badge,
   Table,
   TableHead,
   TableRow,
@@ -18,7 +19,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faFlag, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import TransactionFilter from './TransactionFilter';
-import { Badge } from 'verticals-ui';
 
 const itemsPerPageOptions = [10, 20, 50, 100];
 
@@ -73,7 +73,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
     }
   }, [pagesCount, currentPage]);
 
-  const renderTableHead = useCallback(
+  const renderTableHead = useMemo(
     () => (
       <TableHead>
         <TableRow>
@@ -86,7 +86,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
     []
   );
 
-  const renderTableBody = useCallback(
+  const renderTableBody = useMemo(
     () => (
       <TableBody>
         {currentData.map((transaction) => (
@@ -158,7 +158,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
     [currentData]
   );
 
-  const renderPagination = useCallback(
+  const renderPagination = useMemo(
     () => (
       <Pagination>
         <PaginationPrevious onClick={currentPage > 1 ? () => handlePageChange(currentPage - 1) : undefined} />
@@ -189,7 +189,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
     [currentPage, handlePageChange, pagesCount]
   );
 
-  const renderItemsPerPageOptions = useCallback(
+  const renderItemsPerPageOptions = useMemo(
     () => (
       <div>
         {itemsPerPageOptions.map((option) => (
@@ -206,12 +206,12 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
     <React.Fragment>
       <TransactionFilter />
       <Table dense className="[--gutter:theme(spacing.6)] sm:[--gutter:theme(spacing.8)]">
-        {renderTableHead()}
-        {renderTableBody()}
+        {renderTableHead}
+        {renderTableBody}
       </Table>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
-        {renderItemsPerPageOptions()}
-        {renderPagination()}
+        {renderItemsPerPageOptions}
+        {renderPagination}
       </div>
     </React.Fragment>
   );

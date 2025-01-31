@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo, memo } from 'react';
 import {
   Sidebar,
   SidebarHeader,
@@ -48,11 +48,25 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
     [navigate]
   );
 
+  const goToHomePage = useCallback(() => {
+    setCurrentPath('/');
+    navigate('/');
+  }, [navigate]);
+
+  const goToTransactionsPage = useCallback(() => {
+    setCurrentPath('/transactions');
+    navigate('/transactions');
+  }, [navigate]);
+
+  const isHomePageSelected = useMemo(() => currentPath === '/', [currentPath]);
+  const isTransactionsPageSelected = useMemo(() => currentPath === '/transactions', [currentPath]);
+  const contentLocation = useMemo(() => (!isSidebarExpanded ? 'centered' : undefined), [isSidebarExpanded]);
+
   return (
     <Sidebar className={`transition-width duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
       <SidebarHeader>
         <SidebarSection>
-          <SidebarItem onClick={() => toggleSidebar()} style={{ cursor: 'pointer' }}>
+          <SidebarItem onClick={toggleSidebar} style={{ cursor: 'pointer' }}>
             <Avatar src="/BrikLabsLogo.png" />
             {isSidebarExpanded && <SidebarLabel>Brik Labs</SidebarLabel>}
             {isSidebarExpanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -63,18 +77,18 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
         <SidebarSection>
           <SidebarItem
             iconType="leading"
-            contentLocation={!isSidebarExpanded ? 'centered' : undefined}
-            onClick={() => handleNavigation('/')}
-            current={currentPath === '/'}
+            contentLocation={contentLocation}
+            onClick={goToHomePage}
+            current={isHomePageSelected}
           >
             <HomeIcon />
             {isSidebarExpanded && <SidebarLabel>Home</SidebarLabel>}
           </SidebarItem>
           <SidebarItem
             iconType="leading"
-            contentLocation={!isSidebarExpanded ? 'centered' : undefined}
-            onClick={() => handleNavigation('/transactions')}
-            current={currentPath === '/transactions'}
+            contentLocation={contentLocation}
+            onClick={goToTransactionsPage}
+            current={isTransactionsPageSelected}
           >
             <ArrowsRightLeftIcon />
             {isSidebarExpanded && <SidebarLabel>Transactions</SidebarLabel>}
@@ -128,4 +142,4 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   );
 };
 
-export default SideBar;
+export default memo(SideBar);

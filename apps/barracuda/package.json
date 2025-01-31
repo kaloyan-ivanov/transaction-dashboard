@@ -36,7 +36,9 @@
     "@types/node": "22.10.2",
     "eslint": "8.57.0",
     "prettier": "~3.4.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "luxon": "^3.5.0",
+    "@types/luxon": "^3.4.2"
   },
   "scripts": {
     "start": "vite dev",

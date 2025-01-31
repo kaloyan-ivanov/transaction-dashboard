@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Navbar,
   NavbarSpacer,
@@ -66,4 +66,4 @@ const NavBar: React.FC = () => {
   );
 };
 
-export default NavBar;
+export default memo(NavBar);
