@@ -63,7 +63,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   const contentLocation = useMemo(() => (!isSidebarExpanded ? 'centered' : undefined), [isSidebarExpanded]);
 
   return (
-    <Sidebar className={`transition-width duration-300 ${isSidebarExpanded ? 'w-64' : 'w-16'}`}>
+    <Sidebar>
       <SidebarHeader>
         <SidebarSection>
           <SidebarItem onClick={toggleSidebar} style={{ cursor: 'pointer' }}>

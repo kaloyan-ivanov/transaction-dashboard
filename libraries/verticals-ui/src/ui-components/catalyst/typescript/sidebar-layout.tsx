@@ -1,7 +1,7 @@
 'use client';
 
 import * as Headless from '@headlessui/react';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { NavbarItem } from './navbar';
 
 function OpenMenuIcon() {
@@ -56,24 +56,32 @@ export function SidebarLayout({
 }>) {
   let [showSidebar, setShowSidebar] = useState(false);
 
+  const onSidebarOpen = useCallback(() => {
+    setShowSidebar(true);
+  }, []);
+
+  const onSidebarClose = useCallback(() => {
+    setShowSidebar(false);
+  }, []);
+
   return (
     <div className="relative isolate flex min-h-svh w-full bg-white max-lg:flex-col lg:bg-zinc-100 dark:bg-zinc-900 dark:lg:bg-zinc-950">
       {/* Sidebar on desktop */}
       <div
-        className={`fixed inset-y-0 left-0 ${isSidebarExpanded ? 'w-64' : 'w-16'} max-lg:hidden transition-width duration-300`}
+        className={`fixed inset-y-0 left-0 ${isSidebarExpanded ? 'w-64' : 'w-16'} max-lg:hidden transition-width duration-100`}
       >
         {sidebar}
       </div>
 
       {/* Sidebar on mobile */}
-      <MobileSidebar open={showSidebar} close={() => setShowSidebar(false)}>
+      <MobileSidebar open={showSidebar} close={onSidebarClose}>
         {sidebar}
       </MobileSidebar>
 
       {/* Navbar on mobile */}
       <header className="flex items-center px-4 lg:hidden">
         <div className="py-2.5">
-          <NavbarItem onClick={() => setShowSidebar(true)} aria-label="Open navigation">
+          <NavbarItem onClick={onSidebarOpen} aria-label="Open navigation">
             <OpenMenuIcon />
           </NavbarItem>
         </div>
@@ -82,7 +90,7 @@ export function SidebarLayout({
 
       {/* Content */}
       <main
-        className={`flex flex-1 flex-col pb-2 lg:min-w-0 lg:pr-2 lg:pt-2 transition-padding duration-300`}
+        className={`flex flex-1 flex-col pb-2 lg:min-w-0 lg:pr-2 lg:pt-2 transition-padding duration-100`}
         style={{ marginLeft: isSidebarExpanded ? '16rem' : '6rem' }}
       >
         <div className="grow p-6 lg:rounded-lg lg:bg-white lg:p-6 lg:shadow-sm lg:ring-1 lg:ring-zinc-950/5 dark:lg:bg-zinc-900 dark:lg:ring-white/10">
