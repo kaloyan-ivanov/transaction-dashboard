@@ -1,0 +1,8 @@
+services:
+  barracuda:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: barracuda
+    ports:
+      - '3000:3000'
