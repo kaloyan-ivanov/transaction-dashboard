@@ -28,6 +28,7 @@ import {
 } from '@heroicons/react/20/solid';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
+import { useTranslation } from 'react-i18next';
 
 interface SideBarProps {
   toggleSidebar: () => void;
@@ -36,6 +37,8 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   const { toggleSidebar, isSidebarExpanded } = props;
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
@@ -82,7 +85,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
             current={isHomePageSelected}
           >
             <HomeIcon />
-            {isSidebarExpanded && <SidebarLabel>Home</SidebarLabel>}
+            {isSidebarExpanded && <SidebarLabel>{t('home')}</SidebarLabel>}
           </SidebarItem>
           <SidebarItem
             iconType="leading"
@@ -91,7 +94,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
             current={isTransactionsPageSelected}
           >
             <ArrowsRightLeftIcon />
-            {isSidebarExpanded && <SidebarLabel>Transactions</SidebarLabel>}
+            {isSidebarExpanded && <SidebarLabel>{t('transactions')}</SidebarLabel>}
           </SidebarItem>
         </SidebarSection>
         <SidebarSpacer />

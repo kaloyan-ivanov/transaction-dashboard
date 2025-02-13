@@ -1,0 +1,30 @@
+{
+  "dateTimeFormat": "bg-BG",
+  "language": "Език",
+  "home": "Начало",
+  "transactions": "Трансакции",
+  "TransactionFilter": {
+    "statuses": { "all": "Всички", "successful": "Успешни", "failed": "Неуспешни", "refunded": "Възстановени" }
+  },
+  "TransactionsGrid": {
+    "accountID": "Акаунт",
+    "amount": "Сума",
+    "status": "Статус",
+    "description": "Описание",
+    "customerID": "Клиент",
+    "paymentMethod": "Метод на плащане",
+    "channel": "Канал",
+    "date": "Дата",
+    "actions": "Действия",
+    "states": {
+      "Cleared": "Изчистено",
+      "PayedOut": "Изплатено",
+      "Settled": "Уредено",
+      "Authorized": "Упълномощено",
+      "InProgress": "В процес",
+      "Failed": "Неуспешно",
+      "Default": "По подразбиране"
+    },
+    "all": "Всички"
+  }
+}

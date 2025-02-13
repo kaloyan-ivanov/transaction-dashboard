@@ -1,0 +1,30 @@
+{
+  "dateTimeFormat": "en-US",
+  "language": "Language",
+  "home": "Home",
+  "transactions": "Transactions",
+  "TransactionFilter": {
+    "statuses": { "all": "All", "successful": "Successful", "failed": "Failed", "refunded": "Refunded" }
+  },
+  "TransactionsGrid": {
+    "accountID": "Account",
+    "amount": "Amount",
+    "status": "Status",
+    "description": "Description",
+    "customerID": "Customer",
+    "paymentMethod": "Payment Method",
+    "channel": "Channel",
+    "date": "Date",
+    "actions": "Actions",
+    "states": {
+      "Cleared": "Cleared",
+      "PayedOut": "Payed Out",
+      "Settled": "Settled",
+      "Authorized": "Authorized",
+      "InProgress": "In Progress",
+      "Failed": "Failed",
+      "Default": "Default"
+    },
+    "all": "All"
+  }
+}

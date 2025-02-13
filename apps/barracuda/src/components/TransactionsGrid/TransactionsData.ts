@@ -147,7 +147,7 @@ export const TransactionData: ResponseWrapper<Transaction[]> = {
           token: 'FAw8OkA9Ygxq53WDKANVAGUaeFVTltnu'
         }
       },
-      currency: 'USD',
+      currency: 'EUR',
       id: 'A1oHIdJVHDluaEBZ',
       state: TransactionState.CLEARED,
       arn: 'UIxeXqRm',
@@ -204,7 +204,7 @@ export const TransactionData: ResponseWrapper<Transaction[]> = {
           token: 'iLVM8TIISGOn9NaZp9SE99DVHLUTaYzJ'
         }
       },
-      currency: 'USD',
+      currency: 'BGN',
       id: '7eC3mk5uLk4s4ORg',
       state: TransactionState.CLEARED,
       arn: 'yCAMWhGc',

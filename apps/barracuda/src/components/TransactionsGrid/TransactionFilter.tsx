@@ -2,8 +2,9 @@ import React, { memo, useCallback, useMemo } from 'react';
 import { useTransactionFilters } from '../../hooks/useTransactionFilters';
 import { Button, Dropdown, DropdownButton, DropdownItem, DropdownMenu, Field, Input } from 'verticals-ui';
 import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
 
-const statuses = ['All', 'Successful', 'Failed', 'Refunded'];
+const statuses = ['all', 'successful', 'failed', 'refunded'];
 
 type TransactionFilters = {
   amountLessThan?: string;
@@ -16,6 +17,8 @@ type TransactionFilters = {
 };
 
 function TransactionFilter() {
+  const { t } = useTranslation();
+
   const { date, description, state, setFilters } = useTransactionFilters();
 
   const handleStateChange = useCallback(
@@ -47,10 +50,10 @@ function TransactionFilter() {
   const renderStatusButtons = useMemo(() => {
     return statuses.map((status) => (
       <Button color={status === state ? 'indigo' : 'light'} key={status} onClick={() => handleStateChange(status)}>
-        {status}
+        {t(`TransactionFilter.statuses.${status}`)}
       </Button>
     ));
-  }, [state, handleStateChange]);
+  }, [state, t, handleStateChange]);
 
   const renderStatusDropdownItems = useMemo(() => {
     return statuses.map((status) => (
