@@ -4,7 +4,6 @@ import './output.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SidebarLayout } from 'verticals-ui';
 import { routes } from './appRoutes';
-import { HomePage } from './pages';
 import NavBar from './components/NavBar/NavBar';
 import SideBar from './components/SideBar/SideBar';
 
@@ -25,8 +24,7 @@ function App() {
         isSidebarExpanded={isSidebarExpanded}
       >
         <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<Navigate to="/transactions" />} />
           {routes.map(({ path, component: Component }) => {
             if (isAuthenticated) {
               return <Route key={path} path={path} element={<Component />} />;

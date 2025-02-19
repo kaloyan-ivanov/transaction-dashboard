@@ -26,5 +26,13 @@
       "Default": "По подразбиране"
     },
     "all": "Всички"
-  }
+  },
+  "operations": "Операции",
+  "refunds": "Възстановявания",
+  "disputes": "Спорове",
+  "accounts": "Акаунти",
+  "allAccounts": "Всички акаунти",
+  "stores": "Магазини",
+  "terminals": "Терминали",
+  "complienceAndRisk": "Управление на риска"
 }

@@ -26,5 +26,13 @@
       "Default": "Default"
     },
     "all": "All"
-  }
+  },
+  "operations": "Operations",
+  "refunds": "Refunds",
+  "disputes": "Disputes",
+  "accounts": "Accounts",
+  "allAccounts": "All Accounts",
+  "stores": "Stores",
+  "terminals": "Terminals",
+  "complienceAndRisk": "Complience & Risk"
 }
