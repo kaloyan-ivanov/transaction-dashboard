@@ -4,17 +4,42 @@
   "home": "Home",
   "transactions": "Transactions",
   "TransactionFilter": {
-    "statuses": { "all": "All", "successful": "Successful", "failed": "Failed", "refunded": "Refunded" }
+    "statuses": {
+      "all": "All",
+      "successful": "Successful",
+      "failed": "Failed",
+      "refunded": "Refunded",
+      "disputed": "Disputed",
+      "uncaptured": "Uncaptured"
+    },
+    "amountFilteringOptions": {
+      "isLessThan": "Is less than",
+      "isGreaterThan": "Is greater than",
+      "isBetween": "Is between",
+      "isEqualTo": "Is equal to"
+    },
+    "placeholders": {
+      "selectFilter": "Select a filter...",
+      "equalTo": "Equal to...",
+      "isLessThan": "Is less than...",
+      "isGreaterThan": "Is greater than..."
+    },
+    "clearAll": "Clear all filters"
   },
   "TransactionsGrid": {
-    "accountID": "Account",
+    "details": "Details",
+    "transactionID": "Transaction ID",
+    "accountID": "Account ID",
+    "account": "Account",
     "amount": "Amount",
     "status": "Status",
     "description": "Description",
-    "customerID": "Customer",
+    "customerID": "Customer ID",
+    "customer": "Customer",
+    "name": "Name",
     "paymentMethod": "Payment Method",
     "channel": "Channel",
-    "date": "Date",
+    "date": "Created at",
     "actions": "Actions",
     "states": {
       "Cleared": "Cleared",
@@ -26,6 +51,15 @@
       "Default": "Default"
     },
     "all": "All"
+  },
+  "Pagination": {
+    "perPage": "per page",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "applyFilter": "Apply Filter"
   },
   "operations": "Operations",
   "refunds": "Refunds",

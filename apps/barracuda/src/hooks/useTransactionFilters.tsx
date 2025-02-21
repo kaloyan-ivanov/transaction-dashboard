@@ -1,21 +1,26 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 interface TransactionFilters {
   amountLessThan?: string;
-  amountMoreThan?: string;
+  amountGreaterThan?: string;
+  amountEqualTo?: string;
   state?: string;
   date?: string;
-  description?: string;
+  account?: string;
 }
+
+const filterKeys: (keyof TransactionFilters)[] = [
+  'amountLessThan',
+  'amountGreaterThan',
+  'amountEqualTo',
+  'state',
+  'date',
+  'account'
+];
 
 export function useTransactionFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const filterKeys: (keyof TransactionFilters)[] = useMemo(
-    () => ['amountLessThan', 'amountMoreThan', 'state', 'date', 'description'],
-    []
-  );
 
   const filters = filterKeys.reduce((acc, key) => {
     acc[key] = searchParams.get(key) ?? undefined;
@@ -33,11 +38,27 @@ export function useTransactionFilters() {
         return params;
       });
     },
-    [filterKeys, setSearchParams]
+    [setSearchParams]
   );
+
+  const clearAmountFilter = useCallback(() => {
+    ['amountEqualTo', 'amountLessThan', 'amountGreaterThan'].forEach((param) => {
+      searchParams.delete(param);
+    });
+    setSearchParams(searchParams);
+  }, [setSearchParams, searchParams]);
+
+  const clearAllFilters = useCallback(() => {
+    setSearchParams((params) => {
+      filterKeys.forEach((key) => params.delete(key));
+      return params;
+    });
+  }, [setSearchParams]);
 
   return {
     ...filters,
-    setFilters
+    setFilters,
+    clearAmountFilter,
+    clearAllFilters
   };
 }

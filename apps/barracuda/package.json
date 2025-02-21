@@ -41,7 +41,10 @@
     "@types/luxon": "^3.4.2",
     "sass": "^1.84.0",
     "i18next": "^24.2.2",
-    "react-i18next": "^15.4.0"
+    "react-i18next": "^15.4.0",
+    "react-country-flag": "^3.1.0",
+    "lodash": "^4.17.21",
+    "@types/lodash": "^4.17.15"
   },
   "scripts": {
     "start": "vite dev",

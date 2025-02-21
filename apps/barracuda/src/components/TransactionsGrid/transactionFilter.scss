@@ -1,0 +1,11 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../colors.scss' as barracuda;
+
+[data-current='true'] {
+  color: map.get(barracuda.$barracuda-palette, orange1) !important;
+}
+
+#current-indicator {
+  background-color: map.get(barracuda.$barracuda-palette, orange1) !important;
+}

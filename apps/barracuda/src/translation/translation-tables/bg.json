@@ -4,17 +4,42 @@
   "home": "Начало",
   "transactions": "Трансакции",
   "TransactionFilter": {
-    "statuses": { "all": "Всички", "successful": "Успешни", "failed": "Неуспешни", "refunded": "Възстановени" }
+    "statuses": {
+      "all": "Всички",
+      "successful": "Успешни",
+      "failed": "Неуспешни",
+      "refunded": "Възстановени",
+      "disputed": "Оспорени",
+      "uncaptured": "Неуловени"
+    },
+    "amountFilteringOptions": {
+      "isLessThan": "По-малко от",
+      "isGreaterThan": "По-голямо от",
+      "isBetween": "Между",
+      "isEqualTo": "Равно на"
+    },
+    "placeholders": {
+      "selectFilter": "Изберете филтър...",
+      "equalTo": "Равно на...",
+      "isLessThan": "По-малко от...",
+      "isGreaterThan": "По-голямо от..."
+    },
+    "clearAll": "Изчистване на филтрите"
   },
   "TransactionsGrid": {
-    "accountID": "Акаунт",
+    "details": "Детайли",
+    "transactionID": "Транзакция ИД",
+    "accountID": "Акаунт ИД",
+    "account": "Акаунт",
     "amount": "Сума",
     "status": "Статус",
     "description": "Описание",
-    "customerID": "Клиент",
+    "customerID": "Клиент ИД",
+    "customer": "Клиент",
+    "name": "Име",
     "paymentMethod": "Метод на плащане",
     "channel": "Канал",
-    "date": "Дата",
+    "date": "Създадена на",
     "actions": "Действия",
     "states": {
       "Cleared": "Изчистено",
@@ -26,6 +51,15 @@
       "Default": "По подразбиране"
     },
     "all": "Всички"
+  },
+  "Pagination": {
+    "perPage": "на стр.",
+    "previous": "Назад",
+    "next": "Напред"
+  },
+  "buttons": {
+    "cancel": "Отказ",
+    "applyFilter": "Приложи филтър"
   },
   "operations": "Операции",
   "refunds": "Възстановявания",

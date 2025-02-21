@@ -1,4 +1,4 @@
-import { HomePage, TransactionsPage } from './pages';
+import { HomePage, TransactionDetailsPage, TransactionsPage } from './pages';
 
 export const paths = [
   '/transactions',
@@ -20,6 +20,10 @@ export const routes: Route[] = [
   {
     path: '/transactions',
     component: TransactionsPage
+  },
+  {
+    path: '/transactions/:transactionID',
+    component: TransactionDetailsPage
   },
   {
     path: '/allAccounts',

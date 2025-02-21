@@ -12,28 +12,23 @@ import {
   PaginationPage,
   PaginationNext,
   PaginationPrevious,
-  PaginationGap
+  PaginationGap,
+  Select,
+  Field
 } from 'verticals-ui';
 import { Transaction } from './TransactionsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard } from '@fortawesome/free-brands-svg-icons';
-import { faEye, faFlag, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import TransactionFilter from './TransactionFilter';
+import { useNavigate } from 'react-router-dom';
+import { EllipsisHorizontalIcon } from '@heroicons/react/16/solid';
 import { useTranslation } from 'react-i18next';
+import { formatAmount, getCountryCode } from '../../helpers/formatters';
+import ReactCountryFlag from 'react-country-flag';
 
 const itemsPerPageOptions = [10, 20, 50, 100];
 
-const tableHeaders = [
-  'accountID',
-  'amount',
-  'status',
-  'description',
-  'customerID',
-  'paymentMethod',
-  'channel',
-  'date',
-  'actions'
-];
+const tableHeaders = ['amount', 'status', 'description', 'paymentMethod', 'channel', 'date', 'actions'];
 type BadgeColor = 'lime' | 'blue' | 'purple' | 'orange' | 'zinc' | 'red';
 
 const stateStyles = new Map<string, BadgeColor>([
@@ -55,8 +50,16 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
 
   const { t } = useTranslation();
 
+  const navigate = useNavigate();
+  const handleNavigation = useCallback(
+    (path: string) => {
+      navigate(path);
+    },
+    [navigate]
+  );
+
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(50);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
   const currentData = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -78,6 +81,10 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
     }
   }, [pagesCount, currentPage]);
 
+  const handleItemsPerPageChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+    setItemsPerPage(Number(event.target.value));
+  }, []);
+
   const renderTableHead = useMemo(
     () => (
       <TableHead style={{ position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
@@ -91,24 +98,16 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
     [t]
   );
 
-  const formatAmount = useCallback((transaction: Transaction) => {
-    const amount = transaction.amounts.amount / Math.pow(10, parseInt(transaction.decimalPrecision));
-    switch (transaction.currency) {
-      case 'USD':
-        return `$${amount.toFixed(2)}`;
-      case 'EUR':
-        return `€${amount.toFixed(2)}`;
-      default:
-        return `${amount.toFixed(2)} ${transaction.currency}`;
-    }
-  }, []);
-
   const renderTableBody = useMemo(
     () => (
       <TableBody className="overflow-auto">
         {currentData.map((transaction) => (
-          <TableRow key={transaction.id}>
-            <TableCell>{transaction.id}</TableCell>
+          <TableRow
+            className="hover:bg-zinc-950/5 dark:hover:bg-white/5"
+            key={transaction.id}
+            onClick={() => handleNavigation(`${transaction.id}`)}
+            style={{ cursor: 'pointer' }}
+          >
             <TableCell>{formatAmount(transaction)}</TableCell>
             <TableCell>
               <Badge color={stateStyles.get(transaction.state) ?? 'lime'}>
@@ -116,7 +115,6 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
               </Badge>
             </TableCell>
             <TableCell>{transaction.description}</TableCell>
-            <TableCell>{transaction.customer.id}</TableCell>
             <TableCell>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <FontAwesomeIcon
@@ -127,7 +125,17 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
                     padding: '4px'
                   }}
                 />
-                ****123 {transaction.paymentMethod.card.address.country}
+                ****123
+                <ReactCountryFlag
+                  countryCode={getCountryCode(transaction)}
+                  svg
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    marginLeft: '8px'
+                  }}
+                  title={transaction.paymentMethod.card.address.country}
+                />
               </div>
             </TableCell>
             <TableCell>{transaction.paymentMethod.card.channel}</TableCell>
@@ -142,39 +150,22 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
                 hourCycle: 'h23'
               }).format(new Date(transaction.timestamps.initiated))}
             </TableCell>
-            <TableCell>
-              <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                <FontAwesomeIcon
-                  icon={faEye}
-                  title="text"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => alert('not implemented')}
-                />
-                <FontAwesomeIcon
-                  icon={faFlag}
-                  title="text"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => alert('not implemented')}
-                />
-                <FontAwesomeIcon
-                  icon={faEllipsisH}
-                  title="text"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => alert('not implemented')}
-                />
-              </div>
+            <TableCell onClick={(event: { stopPropagation: () => void }) => event.stopPropagation()}>
+              <EllipsisHorizontalIcon className="h-6 w-6" onClick={() => alert('clicked')} />
             </TableCell>
           </TableRow>
         ))}
       </TableBody>
     ),
-    [currentData, formatAmount, t]
+    [currentData, handleNavigation, t]
   );
 
   const renderPagination = useMemo(
     () => (
       <Pagination>
-        <PaginationPrevious onClick={currentPage > 1 ? () => handlePageChange(currentPage - 1) : undefined} />
+        <PaginationPrevious onClick={currentPage > 1 ? () => handlePageChange(currentPage - 1) : undefined}>
+          {t('Pagination.previous')}
+        </PaginationPrevious>
         <PaginationList>
           {Array.from({ length: pagesCount }, (_, index) => {
             const page = index + 1;
@@ -196,27 +187,29 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
             return null;
           })}
         </PaginationList>
-        <PaginationNext onClick={currentPage < pagesCount ? () => handlePageChange(currentPage + 1) : undefined} />
+        <PaginationNext onClick={currentPage < pagesCount ? () => handlePageChange(currentPage + 1) : undefined}>
+          {t('Pagination.next')}
+        </PaginationNext>
       </Pagination>
     ),
-    [currentPage, handlePageChange, pagesCount]
+    [currentPage, handlePageChange, pagesCount, t]
   );
 
   const renderItemsPerPageOptions = useMemo(
     () => (
       <div>
-        {itemsPerPageOptions.map((option) => (
-          <PaginationPage
-            key={option}
-            onClick={() => setItemsPerPage(Number(option))}
-            current={itemsPerPage === option}
-          >
-            {option}
-          </PaginationPage>
-        ))}
+        <Field>
+          <Select onChange={handleItemsPerPageChange}>
+            {itemsPerPageOptions.map((option) => (
+              <option key={option} value={option}>
+                {`${option} ${t('Pagination.perPage')}`}
+              </option>
+            ))}
+          </Select>
+        </Field>
       </div>
     ),
-    [itemsPerPage]
+    [handleItemsPerPageChange, t]
   );
 
   return (
@@ -225,7 +218,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
       <Table
         dense
         className="[--gutter:theme(spacing.6)] sm:[--gutter:theme(spacing.8)] overflow-auto"
-        style={{ maxHeight: 'calc(100vh - 200px)' }}
+        style={{ maxHeight: 'calc(100vh - 280px)' }}
       >
         {renderTableHead}
         {renderTableBody}

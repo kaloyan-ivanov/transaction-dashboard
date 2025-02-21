@@ -189,7 +189,7 @@ export const TransactionData: ResponseWrapper<Transaction[]> = {
         card: {
           cvc: true,
           address: {
-            country: 'United States',
+            country: 'BG',
             postcode: '13433',
             line2: 'Wyoming',
             line1: '123 Brik Road',
@@ -246,7 +246,7 @@ export const TransactionData: ResponseWrapper<Transaction[]> = {
         card: {
           cvc: true,
           address: {
-            country: 'United States',
+            country: 'DE',
             postcode: '13433',
             line2: 'Wyoming',
             line1: '123 Brik Road',
@@ -303,7 +303,7 @@ export const TransactionData: ResponseWrapper<Transaction[]> = {
         card: {
           cvc: true,
           address: {
-            country: 'United States',
+            country: 'GB',
             postcode: '13433',
             line2: 'Wyoming',
             line1: '123 Brik Road',
