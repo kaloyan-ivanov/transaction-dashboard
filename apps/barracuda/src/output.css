@@ -1116,7 +1116,7 @@ video {
 }
 
 .rounded-md {
-  border-radius: 0.375rem;
+  border-radius: 1rem;
 }
 
 .rounded-xl {
@@ -1337,7 +1337,6 @@ video {
 
 .p-6 {
   padding-right: 1.5rem;
-  padding-bottom: 1.5rem;
   padding-left: 1.5rem;
 }
 
@@ -1363,8 +1362,8 @@ video {
 }
 
 .px-1\.5 {
-  padding-left: 0.375rem;
-  padding-right: 0.375rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .px-2 {
