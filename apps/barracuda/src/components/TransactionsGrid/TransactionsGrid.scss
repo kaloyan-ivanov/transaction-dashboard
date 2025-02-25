@@ -1,0 +1,7 @@
+table tr:first-child > td {
+  border-top: none !important;
+}
+
+table thead tr:last-child > th {
+  border-bottom: none !important;
+}

@@ -229,7 +229,8 @@ function TransactionFilter() {
           gap: '16px',
           padding: '15px',
           backgroundColor: 'rgba(0, 0, 0, 0.03)',
-          borderRadius: '8px'
+          borderRadius: '8px',
+          marginBottom: '14px'
         }}
       >
         <Field>
