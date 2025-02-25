@@ -227,7 +227,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
       <Table
         dense
         className="[--gutter:theme(spacing.6)] sm:[--gutter:theme(spacing.8)] overflow-auto"
-        style={{ maxHeight: 'calc(100vh - 280px)' }}
+        style={{ maxHeight: 'calc(100vh - 250px)' }}
       >
         {renderTableHead}
         {renderTableBody}
