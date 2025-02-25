@@ -5185,7 +5185,7 @@ video {
 }
 
 .\[\&\>\[data-slot\=label\]\+\[data-slot\=control\]\]\:mt-3 > [data-slot='label'] + [data-slot='control'] {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .\[\&\>\[data-slot\=label\]\+\[data-slot\=description\]\]\:mt-1 > [data-slot='label'] + [data-slot='description'] {

@@ -227,9 +227,11 @@ function TransactionFilter() {
         style={{
           display: 'flex',
           gap: '16px',
-          padding: '15px',
+          paddingRight: '16px',
+          paddingBottom: '16px',
+          paddingLeft: '16px',
           backgroundColor: 'rgba(0, 0, 0, 0.03)',
-          borderRadius: '8px',
+          borderRadius: '12px',
           marginBottom: '14px'
         }}
       >
