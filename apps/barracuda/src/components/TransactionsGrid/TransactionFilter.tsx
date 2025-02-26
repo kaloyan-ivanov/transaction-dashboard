@@ -17,7 +17,6 @@ import {
 } from 'verticals-ui';
 import { DateTime } from 'luxon';
 import { isEmpty } from 'lodash';
-import { AdjustmentsHorizontalIcon } from '@heroicons/react/16/solid';
 import { useTranslation } from 'react-i18next';
 import './transactionFilter.scss';
 
@@ -218,7 +217,7 @@ function TransactionFilter() {
 
   return (
     <>
-      <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '16px' }}>
         <Navbar>
           <NavbarSection className="max-lg:hidden">{renderStatusButtons}</NavbarSection>
         </Navbar>
@@ -227,9 +226,12 @@ function TransactionFilter() {
         style={{
           display: 'flex',
           gap: '16px',
-          padding: '15px',
+          paddingRight: '16px',
+          paddingBottom: '16px',
+          paddingLeft: '16px',
           backgroundColor: 'rgba(0, 0, 0, 0.03)',
-          borderRadius: '8px'
+          borderRadius: '12px',
+          marginBottom: '14px'
         }}
       >
         <Field>
@@ -307,7 +309,7 @@ function TransactionFilter() {
             )}
           </div>
         </Field>
-        <Dialog open={isOpenAmountDialog} onClose={handleCloseAmountDialog}>
+        <Dialog open={isOpenAmountDialog} onClose={handleCloseAmountDialog} style={{ maxWidth: '400px' }}>
           <DialogTitle>{t(`TransactionsGrid.amount`)}</DialogTitle>
           <DialogBody>
             <Field>
@@ -354,14 +356,8 @@ function TransactionFilter() {
             )}
           </DialogBody>
           <DialogActions>
-            <Button plain onClick={handleCloseAmountDialog}>
-              <AdjustmentsHorizontalIcon />
-              {t(`buttons.cancel`)}
-            </Button>
-            <Button onClick={handleApplyButton}>
-              <AdjustmentsHorizontalIcon />
-              {t(`buttons.applyFilter`)}
-            </Button>
+            <Button onClick={handleCloseAmountDialog}>{t(`buttons.cancel`)}</Button>
+            <Button onClick={handleApplyButton}>{t(`buttons.applyFilter`)}</Button>
           </DialogActions>
         </Dialog>
         <Field style={{ minWidth: '170px' }}>

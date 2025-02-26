@@ -25,6 +25,7 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/16/solid';
 import { useTranslation } from 'react-i18next';
 import { formatAmount, getCountryCode } from '../../helpers/formatters';
 import ReactCountryFlag from 'react-country-flag';
+import './TransactionsGrid.scss';
 
 const itemsPerPageOptions = [10, 20, 50, 100];
 
@@ -87,7 +88,15 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
 
   const renderTableHead = useMemo(
     () => (
-      <TableHead style={{ position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1 }}>
+      <TableHead
+        style={{
+          position: 'sticky',
+          top: 0,
+          backgroundColor: 'white',
+          zIndex: 1,
+          boxShadow: 'inset 0 -1px 0 #e5e7eb'
+        }}
+      >
         <TableRow>
           {tableHeaders.map((header) => (
             <TableHeader key={header}>{t(`TransactionsGrid.${header}`)}</TableHeader>
@@ -218,7 +227,7 @@ function TransactionsGrid(props: TransactionsDataGridProps): JSX.Element {
       <Table
         dense
         className="[--gutter:theme(spacing.6)] sm:[--gutter:theme(spacing.8)] overflow-auto"
-        style={{ maxHeight: 'calc(100vh - 280px)' }}
+        style={{ maxHeight: 'calc(100vh - 240px)' }}
       >
         {renderTableHead}
         {renderTableBody}
