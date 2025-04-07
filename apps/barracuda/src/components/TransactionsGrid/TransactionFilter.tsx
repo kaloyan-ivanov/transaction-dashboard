@@ -15,10 +15,10 @@ import {
   NavbarSection,
   Select
 } from 'verticals-ui';
-import { DateTime } from 'luxon';
 import { isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import './transactionFilter.scss';
+import DateFilter from '../filters/dateFilter/DateFilter';
 
 const statuses = ['all', 'successful', 'failed', 'refunded', 'disputed', 'uncaptured'];
 const amountFilteringOptions = ['isEqualTo', 'isBetween', 'isGreaterThan', 'isLessThan'];
@@ -79,12 +79,12 @@ function TransactionFilter() {
     [setFilters]
   );
 
-  const handleDateChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFilters({ date: String(DateTime.fromISO(e.target.value).toMillis()) });
-    },
-    [setFilters]
-  );
+  // const handleDateChange = useCallback(
+  //   (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     setFilters({ date: String(DateTime.fromISO(e.target.value).toMillis()) });
+  //   },
+  //   [setFilters]
+  // );
 
   const handleAmountLessThanChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -252,7 +252,7 @@ function TransactionFilter() {
           <div style={{ alignSelf: 'flex-end' }}>
             {amountFilter === '' && (
               <Input
-                style={{ width: '200px' }}
+                style={{ width: '200px', cursor: 'pointer' }}
                 placeholder={t(`TransactionFilter.placeholders.selectFilter`)}
                 onClick={handleOpenAmountDialog}
                 readOnly
@@ -356,19 +356,13 @@ function TransactionFilter() {
             )}
           </DialogBody>
           <DialogActions>
-            <Button onClick={handleCloseAmountDialog}>{t(`buttons.cancel`)}</Button>
+            <Button plain onClick={handleCloseAmountDialog}>
+              {t(`buttons.cancel`)}
+            </Button>
             <Button onClick={handleApplyButton}>{t(`buttons.applyFilter`)}</Button>
           </DialogActions>
         </Dialog>
-        <Field style={{ minWidth: '170px' }}>
-          <Label>Date</Label>
-          <Input
-            type="datetime-local"
-            name="url"
-            value={date ? new Date(Number(date)).toISOString().slice(0, 16) : ''}
-            onChange={handleDateChange}
-          />
-        </Field>
+        <DateFilter />
         <Field style={{ alignContent: 'end' }}>
           <Button
             plain
